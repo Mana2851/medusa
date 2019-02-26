@@ -40,12 +40,12 @@ ol, ul {
   background: #ddd;
 }
 
-.game {
-  display: flex;
-  flex-direction: row;
+#teamName {
+	float: left;
+	border: solid;
 }
 
-.game-info {
-  margin-left: 20px;
+#workout {
+	float: right;
+	border: solid;
 }
-
