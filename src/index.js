@@ -5,7 +5,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
-import './index.css';
+// import './index.css';
 
 
 class TodoApp extends React.Component {
@@ -62,7 +62,7 @@ class TodoList extends React.Component {
     const items = this.state.items;
     return (
       <form onSubmit = {this.handleSubmit}>
-	    <ul id = {this.state.text}>
+	    <ul>
           {items.map(item => <TodoItem item={item} key={item.key} />)}
         </ul>
         <label htmlFor = "new_Name">Adding a new workout?</label>
@@ -84,7 +84,7 @@ class TodoItem extends React.Component {
     const key = this.state.key;
     return(
       <ul class = "addedInfo">
-	    <ExpansionPanel id = {this.state.text}>
+	    <ExpansionPanel>
 		<ExpansionPanelSummary>
           <Typography> {item.text} </Typography>
         </ExpansionPanelSummary>
@@ -92,7 +92,6 @@ class TodoItem extends React.Component {
 		  <Typography> Lorem ipsum 2 dolor sit amet, consectetur adipiscing. </Typography>
 		</ExpansionPanelDetails>
 		</ExpansionPanel>
-        {item.text}
       </ul>
     )
   }
