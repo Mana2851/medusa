@@ -1,22 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Button from '@material-ui/core/Button';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
 import './index.css';
+
 
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { teamItems: [], workoutItems: [] }; //One for each so that each array can keep tract of its own list of items instead of changing the same one for both
+    this.state = { teamItems: [], workoutItems: [] };
   }
-
+  
   render()
   {
     return (
       <div id = "contain">
-        <div id = "teamName">
+        <div class = "columns">
           <h3>Team Names</h3>
           <TodoList items = {this.state.teamItems} text = {"teamList"} />
         </div>
-        <div id = "workouts">
+        <div class = "columns">
           <h3>Workout Names</h3>
           <TodoList items = {this.state.workoutItems} text = {"workoutList"} />
         </div>
@@ -54,15 +60,14 @@ class TodoList extends React.Component {
 
   render () {
     const items = this.state.items;
-    //I passed the form into here as well so I could refer to "this" properly, since it seems that it always refers to the Component it is inside of.
     return (
       <form onSubmit = {this.handleSubmit}>
-        <ul id = {this.state.text}>
+	    <ul id = {this.state.text}>
           {items.map(item => <TodoItem item={item} key={item.key} />)}
         </ul>
         <label htmlFor = "new_Name">Adding a new workout?</label>
         <input id = "new_Name" onChange = {this.handleChange} value = {this.state.text}/>
-        <button> Add #{this.state.items.length + 1}</button>
+        <Button variant="contained" color="primary"> Add #{this.state.items.length + 1}</Button>
       </form>
     );
   };
@@ -78,7 +83,15 @@ class TodoItem extends React.Component {
     const item = this.state.item;
     const key = this.state.key;
     return(
-      <ul id = {key}>
+      <ul class = "addedInfo">
+	    <ExpansionPanel id = {this.state.text}>
+		<ExpansionPanelSummary>
+          <Typography> {item.text} </Typography>
+        </ExpansionPanelSummary>
+		<ExpansionPanelDetails>
+		  <Typography> Lorem ipsum 2 dolor sit amet, consectetur adipiscing. </Typography>
+		</ExpansionPanelDetails>
+		</ExpansionPanel>
         {item.text}
       </ul>
     )
