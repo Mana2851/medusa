@@ -67,7 +67,7 @@ class TodoList extends React.Component {
         </ul>
         <label htmlFor = "new_Name">Adding a new workout?</label>
         <input id = "new_Name" onChange = {this.handleChange} value = {this.state.text}/>
-        <Button variant="contained" color="primary"> Add #{this.state.items.length + 1}</Button>
+        <button variant="contained" color="primary"> Add #{this.state.items.length + 1}</button>
       </form>
     );
   };
