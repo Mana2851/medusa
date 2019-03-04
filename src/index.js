@@ -8,8 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import './index.css';
+
 
 
 class TodoApp extends React.Component {
@@ -94,19 +98,17 @@ class TodoItem extends React.Component {
         </ExpansionPanelSummary>
 		<ExpansionPanelDetails>
 		<List className={this.root} subheader={<li />}>
-		{[0, 1, 2, 3, 4].map(sectionId => (
-        <li key={`section-${sectionId}`} className={this.listSection}>
+		{[0].map(sectionId => (
           <ul className={this.ul}>
-            <ListSubheader>{`I'm sticky ${sectionId}`}</ListSubheader>
-            {[0, 1, 2].map(item => (
-              <ListItem key={`Lift-${sectionId}-${item}`}>
-                <ListItemText primary={`Item ${item}`} />
+            {[0, 1, 2, 3].map(item => (
+              <ListItem>
+			  //scrolling should be here
+                <ListItemText primary={`Lift ${item}`} />
               </ListItem>
             ))}
           </ul>
-        </li>
       ))}
-    </List>
+		</List>
 		</ExpansionPanelDetails>
 		</ExpansionPanel>
       </ul>
