@@ -5,7 +5,11 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
-// import './index.css';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import './index.css';
 
 
 class TodoApp extends React.Component {
@@ -89,7 +93,20 @@ class TodoItem extends React.Component {
           <Typography> {item.text} </Typography>
         </ExpansionPanelSummary>
 		<ExpansionPanelDetails>
-		  <Typography> Lorem ipsum 2 dolor sit amet, consectetur adipiscing. </Typography>
+		<List className={this.root} subheader={<li />}>
+		{[0, 1, 2, 3, 4].map(sectionId => (
+        <li key={`section-${sectionId}`} className={this.listSection}>
+          <ul className={this.ul}>
+            <ListSubheader>{`I'm sticky ${sectionId}`}</ListSubheader>
+            {[0, 1, 2].map(item => (
+              <ListItem key={`Lift-${sectionId}-${item}`}>
+                <ListItemText primary={`Item ${item}`} />
+              </ListItem>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </List>
 		</ExpansionPanelDetails>
 		</ExpansionPanel>
       </ul>
