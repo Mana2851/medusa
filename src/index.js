@@ -21,18 +21,18 @@ class TodoApp extends React.Component {
     super(props);
     this.state = { teamItems: [], workoutItems: [] };
   }
-  
+
   render()
   {
     return (
       <div id = "contain">
         <div class = "columns">
           <h3>Team Names</h3>
-          <TodoList items = {this.state.teamItems} text = {"teamList"} />
+          <TodoList items = {this.state.teamItems} id = "teamList" />
         </div>
         <div class = "columns">
           <h3>Workout Names</h3>
-          <TodoList items = {this.state.workoutItems} text = {"workoutList"} />
+          <TodoList items = {this.state.workoutItems} id = "workoutList" />
         </div>
       </div>
     );
@@ -42,7 +42,7 @@ class TodoApp extends React.Component {
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: props.items, text: props.id };
+    this.state = { items: props.items, text: '', id: props.id };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -66,39 +66,41 @@ class TodoList extends React.Component {
     }));
   }
 
+  defineListItem()
+  {
+    var listItem = null;
+    if(this.state.id === "workoutList")
+    {
+      listItem = this.state.items.map(item => <TodoItem item={item} key={item.id} />)
+    }
+    if(this.state.id === "teamList")
+    {
+      listItem = this.state.items.map(item => <TodoTeam item={item} key={item.id} />)
+    }
+    return(listItem)
+  }
+
   render () {
     const items = this.state.items;
-	if (this.state.text === "workoutList"){
-		return(
-		<form onSubmit = {this.handleSubmit}>
-	    <ul>
-		{items.map(item => <TodoItem item={item} key={item.key} />)}
-		</ul>	
+    const text = this.state.text;
+
+    return (
+      <form onSubmit = {this.handleSubmit}>
+  	    <ul>
+          {this.defineListItem()}
+        </ul>
         <label htmlFor = "new_Name">Adding a new workout?</label>
-        <input id = "new_Name" onChange = {this.handleChange} value = {this.state.text}/>
-        <Button variant="contained" color="primary"> Add #{this.state.items.length + 1}</Button>
-		</form>
-		);
-	}
-	else {
-		return(
-		<form onSubmit = {this.handleSubmit}>
-	    <ul>
-		{items.map(item => <TodoTeam item={item} key={item.key} />)}
-		</ul>	
-        <label htmlFor = "new_Name">Adding a new Team?</label>
-        <input id = "new_Name" onChange = {this.handleChange} value = {this.state.text}/>
-        <Button variant="contained" color="primary"> Add #{this.state.items.length + 1}</Button>
-		</form>
-		);
-	}
+        <input id = "new_Name" onChange = {this.handleChange}/>
+        <button variant="contained" color="primary"> Add #{this.state.items.length + 1}</button>
+      </form>
+    );
   }
 }
 
 class TodoTeam extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {item: props.item, key: props.key}
+		this.state = {item: props.item, key: props.id}
 	}
 	render()
 	{
@@ -106,19 +108,20 @@ class TodoTeam extends React.Component {
 		const key = this.state.key;
 		return(
 		<ul class = "addedInfo">
-		   <List>
-              <Typography> {item.text} </Typography>
-		   </List>
+      <ExpansionPanel expanded={false}>
+        <ExpansionPanelSummary>
+          <Typography> {item.text} </Typography>
+        </ExpansionPanelSummary>
+      </ExpansionPanel>
 		</ul>
 		);
 	}
 }
 
-		
 class TodoItem extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { item: props.item, key: props.key }
+    this.state = { item: props.item, key: props.id }
   }
   render()
   {
@@ -127,24 +130,23 @@ class TodoItem extends React.Component {
     return(
       <ul class = "addedInfo">
 	    <ExpansionPanel>
-		<ExpansionPanelSummary>
+  		  <ExpansionPanelSummary>
           <Typography> {item.text} </Typography>
         </ExpansionPanelSummary>
-		<ExpansionPanelDetails>
-			<List className={this.root} subheader={<li />}>
-			{[0].map(sectionId => (
-			<ul className={this.ul}>
-            {[0, 1, 2, 3].map(item => (
-              <ListItem>
-			  Scrolling as well?
-                <ListItemText primary={`Lift ${item}`} />
-              </ListItem>
-            ))}
-			</ul>
-		))}
-			</List>
-		</ExpansionPanelDetails>
-		</ExpansionPanel>
+    		<ExpansionPanelDetails>
+  			<List className={this.root} subheader={<li />}>
+    			{[0].map(sectionId => (
+      			<ul className={this.ul}>
+              {[0, 1, 2, 3].map(item => (
+                <ListItem>
+                  <ListItemText primary={`Lift ${item}`} />
+                </ListItem>
+              ))}
+      			</ul>
+          ))}
+  			</List>
+  		  </ExpansionPanelDetails>
+		  </ExpansionPanel>
       </ul>
     )
   }
