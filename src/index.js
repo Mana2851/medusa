@@ -68,22 +68,30 @@ class TodoList extends React.Component {
 
   render () {
     const items = this.state.items;
-    return (
-      <form onSubmit = {this.handleSubmit}>
+	if (this.state.text === "workoutList"){
+		return(
+		<form onSubmit = {this.handleSubmit}>
 	    <ul>
-		{{
-		if ({this.state.text} == {"workoutList"}){
-			items.map(item => <TodoItem item={item} key={item.key}; />)
-		}
-		if (this.state.text == "teamList"){
-			items.map(item => <TodoTeam item={item} key={item.key}; />)
-		}
-        </ul>	
+		{items.map(item => <TodoItem item={item} key={item.key} />)}
+		</ul>	
         <label htmlFor = "new_Name">Adding a new workout?</label>
         <input id = "new_Name" onChange = {this.handleChange} value = {this.state.text}/>
-        <button variant="contained" color="primary"> Add #{this.state.items.length + 1}</button>
-      </form>
-    );
+        <Button variant="contained" color="primary"> Add #{this.state.items.length + 1}</Button>
+		</form>
+		);
+	}
+	else {
+		return(
+		<form onSubmit = {this.handleSubmit}>
+	    <ul>
+		{items.map(item => <TodoTeam item={item} key={item.key} />)}
+		</ul>	
+        <label htmlFor = "new_Name">Adding a new Team?</label>
+        <input id = "new_Name" onChange = {this.handleChange} value = {this.state.text}/>
+        <Button variant="contained" color="primary"> Add #{this.state.items.length + 1}</Button>
+		</form>
+		);
+	}
   }
 }
 
@@ -98,9 +106,9 @@ class TodoTeam extends React.Component {
 		const key = this.state.key;
 		return(
 		<ul class = "addedInfo">
-		   <ExpansionPanel>
+		   <List>
               <Typography> {item.text} </Typography>
-		   </ExpansionPanel>
+		   </List>
 		</ul>
 		);
 	}
@@ -128,7 +136,7 @@ class TodoItem extends React.Component {
 			<ul className={this.ul}>
             {[0, 1, 2, 3].map(item => (
               <ListItem>
-			  //scrolling should be here
+			  Scrolling as well?
                 <ListItemText primary={`Lift ${item}`} />
               </ListItem>
             ))}
